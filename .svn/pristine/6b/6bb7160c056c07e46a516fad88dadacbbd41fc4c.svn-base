@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="découvrez quand la fibre arrive chez vous">
+    <meta name="author" content="Aurélien Caillaud">
+    <meta name="" content="">
+    <title>À quand la fibre</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="container-fluid d-flex flex-column justify-content-around">
+        
+            <h1>À quand la fibre ?</h1>
+            <p>Vous voulez savoir quand la fibre arrivera enfin chez vous ?<br>
+            Vous êtes au bon endroit !<br>
+            Remplissez le formulaire ci-dessous pour obtenir votre réponse.</p>
+        
+    </header>
+    <main class="container-fluid">
+        <section class="container">
+            <div class="row ">
+                <div class="col-md-6" id="formulaire">
+                    <form action="index.html" method="post" class="d-flex flex-column">
+                        <label for="adresse">Entrez votre adresse postale</label>
+                        <input type="text" name="adresse" id="adresse">
+                        <ul id="suggestions">
+                            <li>Suggestions</li>
+                        </ul>
+                        <input type="submit" name="valider" value="Envoyer" id="envoyer">
+                    </form>
+                    
+                    <label for="geoloc">Ou géolocalisez vous en cliquant ici</label>
+                    <button type="button" name="geoloc" id="geoloc">Géolocalisation</button>
+                    <label for="repfinal">Obtenez votre réponse en cliquant ici</label>
+                    <button type="button" name="repfinal" id="repfinal">Réponse</button>
+                    <p id="final"></p>
+                </div>
+                <div class="col-md-6" id="mapid" alt="carte géographique">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="row justify-content-around">
+            <div class="col-md-5">
+                <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/fr/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/3.0/fr/88x31.png" /></a><br />Ce(tte) œuvre est mise à disposition selon les termes de la <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/fr/">Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France</a>.
+            </div>
+            <div class="col-md-5">
+                <p>Créé par Aurélien Caillaud <br>
+                Pour le conseil départemental du Doubs</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

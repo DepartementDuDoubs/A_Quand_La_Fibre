@@ -1,0 +1,26 @@
+/**
+ * Créé par Aurélien Caillaud 
+ * Pour le conseil départemental du Doubs
+ * Licence CC-by-nc-nd 3.0
+ */
+
+
+header {
+    height: 40vh;
+    text-align: center;
+}
+
+#formulaire {
+    height: 40vh;
+}
+
+.result_focus {
+    background-color: aqua;
+}
+
+#mapid {
+    height: 40vh;
+}
+footer {
+    margin-top: 5%;
+}
