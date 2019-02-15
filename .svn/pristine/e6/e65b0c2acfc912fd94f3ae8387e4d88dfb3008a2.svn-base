@@ -1,0 +1,16 @@
+
+
+header {
+    height: 40vh;
+    text-align: center;
+}
+
+#formulaire {
+    height: 40vh;
+}
+
+
+
+#mapid {
+    height: 40vh;
+}

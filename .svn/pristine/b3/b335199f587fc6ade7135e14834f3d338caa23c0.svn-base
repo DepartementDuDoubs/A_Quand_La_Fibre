@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="découvrez quand la fibre arrive chez vous">
+    <meta name="author" content="Aurélien Caillaud">
+    <meta name="" content="">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+    <header class="container-fluid">
+        <div class="container">
+            <h1>À quand la fibre ?</h1>
+            <p>Vous voulez savoir quand la fibre arrivera enfin chez vous ?<br>
+            Vous êtes au bon endroit !<br>
+            Remplissez le formulaire ci-dessous pour obtenir votre réponse.</p>
+        </div>
+    </header>
+    <main class="container-fluid">
+        <section class="container d-flex ">
+            <div class="col-md-6">
+                <form action="index.html" method="post">
+                    <label for="adresse">Adresse postale</label>
+                    <input type="text" name="adresse" id="adresse">
+                    <input type="submit" name="valider" value="Envoyer" id="envoyer">
+                </form>
+                <button type="button" id="geoloc">Géolocalisation</button>
+            </div>
+            <div class="col-md-6">
+                
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

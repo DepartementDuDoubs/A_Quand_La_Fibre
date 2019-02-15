@@ -1,0 +1,311 @@
+/**
+ * Créé par Aurélien Caillaud 
+ * Pour le conseil départemental du Doubs
+ * Licence CC-by-nc-nd 3.0
+ */
+
+
+// ------------------------------------Constante principales------------------------------------------
+const apiAdresse = 'https://api-adresse.data.gouv.fr/search/?q=';
+const apiAdressReverse = 'https://api-adresse.data.gouv.fr/reverse/?';
+const apiDate1 = 'https://opendata.doubs.fr/api/records/1.0/search/?dataset=deploiement-fibre-optique-en-zone-rip-planification-actuelle&facet=date&geofilter.distance=';
+const apiDate2 = 'https://opendata.doubs.fr/api/records/1.0/search/?dataset=deploiement-fibre-optique-en-zone-rip&facet=date&geofilter.distance=';
+const accessToken = 'pk.eyJ1IjoibW91c3RpY2syNTkwIiwiYSI6ImNqczBoMTYxYTAxNHkzeW8xZHoxaHFraDQifQ.CzLCF-o00ONDlhxJBSo7-Q';
+const url_map = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
+const coordCentreDoubs = '&context=25, Doubs, Franche-Comte';
+
+
+// ------------------------ Variables utilisées dans les fonctions --------------------
+const geoloc = document.getElementById('geoloc');
+const envoyer = document.getElementById('envoyer');
+const final = document.getElementById('final');
+const repfinal = document.getElementById('repfinal');
+let lat;
+let lng;
+let adressePostale;
+let adresse = document.getElementById('adresse'),
+    suggestions = document.getElementById('suggestions');
+let date1;
+let date2;
+let tempsGagne;
+
+// ------------------------------------Création de la Map----------------------------------------
+let mymap = L.map('mapid', {
+    center: [47.234, 6.015],
+    zoom: 13
+});
+
+// ------------------------------------Appel à API Mapbox et limitation zoom--------------------------
+L.tileLayer(url_map, {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: accessToken
+}).addTo(mymap);
+
+// ------------------------------------Fonction de géolocalisation------------------------------------
+geoloc.addEventListener('click', function () {
+    mymap.locate({
+        setView: true,
+        zoom: 13
+    });
+});
+
+function onLocationFound(e) {
+    let radius = e.accuracy / 10;
+    lat = e.latlng.lat;
+    lng = e.latlng.lng;
+    getAdresse();
+    getDate1();
+    getDate2();
+    L.marker(e.latlng).addTo(mymap)
+    .bindPopup("Vous êtes géolocalisé ici "+ adresse.value+ " avec une marge d'erreur de " + radius+ " mètres.<br>Cliquez sur Envoyer pour valider, sinon modifiez l'adresse dans le champ prévu.<br>lat : "+ lat + "<br>lon : "+lng ).openPopup();
+    L.circle(e.latlng, radius).addTo(mymap);
+
+}
+
+mymap.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+    alert(e.message);
+}
+mymap.on('locationerror', onLocationError);
+
+// ------------------------------------autocompletion de l'adresse avec API adresse data gouv------------------------------------
+(function () {
+
+    let selectedResult = -1, // Permet de savoir quel résultat est sélectionné : -1 signifie "aucune sélection"
+        previousRequest, // On stocke notre précédente requête dans cette variable
+        previousValue = adresse.value; // On fait de même avec la précédente valeur
+
+    function getResults(keywords) { // Effectue une requête et récupère les résultats
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', apiAdresse + encodeURIComponent(keywords));
+
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                let reponse = xhr.response;
+                reponse = JSON.parse(reponse);
+                reponse = reponse.features;
+                let reponse0 = reponse[0].properties.label;
+                let reponse1 = reponse[1].properties.label;
+                let reponse2 = reponse[2].properties.label;
+                let reponse3 = reponse[3].properties.label;
+                let reponse4 = reponse[4].properties.label;
+                let reponses = [reponse0, reponse1, reponse2, reponse3, reponse4];
+                displayResults(reponses);
+
+            }
+        });
+
+        xhr.send(null);
+
+        return xhr;
+
+    }
+
+    function displayResults(reponses) { // Affiche les résultats d'une requête
+
+        suggestions.style.display = reponses.length ? 'block' : 'none'; // On cache le conteneur si on n'a pas de résultats
+
+        if (reponses.length) { // On ne modifie les résultats que si on en a obtenu
+
+            
+            var responseLen = reponses.length;
+
+            suggestions.innerHTML = ''; // On vide les résultats
+
+            for (var i = 0, li; i < responseLen; i++) {
+
+                li = suggestions.appendChild(document.createElement('li'));
+                li.innerHTML = reponses[i];
+
+                li.addEventListener('click', function (e) {
+                    chooseResult(e.target);
+                });
+
+            }
+
+        }
+
+    }
+
+    function chooseResult(result) { // Choisi un des résultats d'une requête et gère tout ce qui y est attaché
+
+        adresse.value = previousValue = result.innerHTML; // On change le contenu du champ de recherche et on enregistre en tant que précédente valeur
+        suggestions.style.display = 'none'; // On cache les résultats
+        result.className = ''; // On supprime l'effet de focus
+        selectedResult = -1; // On remet la sélection à "zéro"
+        adresse.focus(); // Si le résultat a été choisi par le biais d'un clique alors le focus est perdu, donc on le réattribue
+
+    }
+
+    adresse.addEventListener('keyup', function (e) {
+
+        var lis = suggestions.getElementsByTagName('li');
+
+        if (e.keyCode == 38 && selectedResult > -1) { // Si la touche pressée est la flèche "haut"
+
+            lis[selectedResult--].className = '';
+
+            if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
+                lis[selectedResult].className = 'result_focus';
+            }
+
+        } else if (e.keyCode == 40 && selectedResult < lis.length - 1) { // Si la touche pressée est la flèche "bas"
+
+        suggestions.style.display = 'block'; // On affiche les résultats
+
+            if (selectedResult > -1) { // Cette condition évite une modification de childNodes[-1], qui n'existe pas, bien entendu
+                lis[selectedResult].className = '';
+            }
+
+            lis[++selectedResult].className = 'result_focus';
+
+        } else if (e.keyCode == 39 && selectedResult > -1) { // Si la touche pressée est "Entrée"
+
+            chooseResult(lis[selectedResult]);
+
+        } else if (adresse.value != previousValue) { // Si le contenu du champ de recherche a changé
+
+            previousValue = adresse.value;
+
+            if (previousRequest && previousRequest.readyState < XMLHttpRequest.DONE) {
+                previousRequest.abort(); // Si on a toujours une requête en cours, on l'arrête
+            }
+
+            previousRequest = getResults(previousValue); // On stocke la nouvelle requête
+
+            selectedResult = -1; // On remet la sélection à "zéro" à chaque caractère écrit
+
+        }
+
+    });
+
+})();
+// ------------------------------------Appel API adresse data gouv lors du clic sur envoyer pour récupérer les coordonnées gps ----------------
+envoyer.addEventListener('click', function (e) {
+    e.preventDefault();
+    // On récupère l'adresse 
+    adressePostale = adresse.value;
+    // On appelle la fonction getCoord    
+    getCoord();
+    getDate1();
+    getDate2();
+    
+    return false;
+});
+
+
+// ------------------------------------Fonction localisation par adresse saisie---------------------------------- 
+// ------------------------------------Et ajout du marqueur de postion sur la map et envoie de requête sur opendata doubs-------------------------------------------------------------
+function getCoord() {
+    let request = new XMLHttpRequest();
+    request.open('GET', apiAdresse+ adressePostale);
+    request.onload = function() {
+        if (request.status == 200) {  // On recherche les éléments qui nous intéresse dans le retour
+            let reponse = request.response;
+            reponse = JSON.parse(reponse);
+            reponse =reponse.features; 
+            reponse = reponse[0];
+            reponse = reponse.geometry;
+            reponse = reponse.coordinates;
+            lat = reponse[1]; // On récupère la lattitude
+            lng = reponse[0]; // On récupère la longitude
+            // On inverse lat et lng pour créer le marqueur
+            reponse = [
+                lat,
+                lng
+            ];
+            // On crée le marqueur sur la map
+            L.marker(reponse).addTo(mymap)
+            .bindPopup("Vous êtes ici " + adressePostale + '<br>lat : ' + lat + '<br>lng : ' + lng ).openPopup();
+            // On recentre la map
+            mymap.setView(
+                reponse,
+                13
+            );
+
+            // On envoie maintenant la requête à opendata
+
+            
+        }
+    };
+    request.send();
+};
+
+// -------------------------------------Fonction getAdresse() pour avoir l'adresse à partir des coordonées gps---------------------------------
+function getAdresse() {
+    let reponse;
+    let request = new XMLHttpRequest();
+    request.open('GET', apiAdressReverse+ 'lon='+ lng+ '&lat='+ lat);
+    request.onload = function() {
+        if (request.status == 200) {  // On recherche les éléments qui nous intéresse dans le retour
+            reponse = request.response;
+            reponse = JSON.parse(reponse);
+            reponse = reponse.features[0].properties.label; // label retourne l'adresse postale
+            adresse.value = reponse;
+        } 
+    };
+    request.send();
+};
+
+// ------------------------------------Recherche des dates dans l'API opendata doubs et comparaison----------------
+    // ------------------------------------Recherche de la date de planification actuelle dans l'API opendata doubs----------------
+
+function getDate1() {
+    let request = new XMLHttpRequest();
+    request.open('GET', apiDate1+ lat+ ","+ lng );
+    request.onload = function() {
+        if (request.status == 200) {  // On recherche les éléments qui nous intéresse dans le retour
+            let reponse = request.response;
+            reponse = JSON.parse(reponse);
+            reponse = reponse.records[0].fields.date;
+            date1 = reponse;
+        }
+    };
+    request.send();
+};
+
+    // ------------------------------------Recherche de l'ancienne date de planification dans l'API opendata doubs----------------
+
+function getDate2() {
+    let request = new XMLHttpRequest();
+    request.open('GET', apiDate2+ lat+ ","+ lng );
+    request.onload = function() {
+        if (request.status == 200) {  // On recherche les éléments qui nous intéresse dans le retour
+            let reponse = request.response;
+            reponse = JSON.parse(reponse);
+            reponse = reponse.records[0].fields.date;
+            date2 = reponse;
+        }
+    };
+    request.send();
+};
+
+    // ------------------------------------Comparaison des dates ----------------------------------------------------------
+repfinal.addEventListener('click', function() {
+    
+        console.log('pas bon');
+        getDate1();
+        getDate2();
+        if (date1 == false) {
+            console.log('date non définie');
+            final.innerHTML = "La zone demandée ne dépend pas du département du Doubs ou êtes déja éligible à la fibre. <br>Veuillez vous rapprocher de votre fournisseur pour plus d'informations.";
+        } else if ((date1 == '2021-2022') && (date2 >> 2022)) {
+            console.log(date2);
+            tempsGagne = date2 - 2022;
+            final.innerHTML = "Vous devriez avoir la fibre chez vous entre 2021 et 2022. <br>Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.";
+        } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
+            console.log(date1, date2);
+            final.innerHTML = "Vous devriez avoir la fibre chez vous entre 2021 et 2022.";
+        } else if (date1 < date2) {
+            console.log(date1, date2);
+            tempsGagne = date2-date1;
+            final.innerHTML = "Vous devriez avoir la fibre chez vous en "+ date1+ ".<br>Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.";
+        } 
+    
+});
+
+

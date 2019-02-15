@@ -1,0 +1,18 @@
+// ------------------------------------Constante principales------------------------------------------
+const url_map = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
+
+// ------------------------------------Création de la Map----------------------------------------
+let mymap = L.map('mapid', {
+    center: [47.234, 6.015],
+    zoom: 13
+});
+
+
+
+// ------------------------------------Appel à API Mapbox et limitation zoom
+L.tileLayer(url_map, {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoibW91c3RpY2syNTkwIiwiYSI6ImNqczBoMTYxYTAxNHkzeW8xZHoxaHFraDQifQ.CzLCF-o00ONDlhxJBSo7-Q'
+}).addTo(mymap);
