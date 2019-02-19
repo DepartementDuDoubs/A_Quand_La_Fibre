@@ -1,33 +1,246 @@
 /**
- * Créé par Aurélien Caillaud 
- * Pour le conseil départemental du Doubs
- * Licence CC-by-nc-nd 3.0
+ * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez juste, en vous géolocalisant ou en entrant votre adresse.>
+*  Copyright (C) <2019>  <Aurélien Caillaud>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+@font-face {
+    font-family: "Conv_Amaranth-Regular";
+    src: url(fonts/Amaranth-Regular.ttf) format('truetype');
+}
 
+body {
+    font-family: "Conv_Amaranth-Regular",Helvetica,Arial,sans-serif;
+    background:#1cb4c2 url(images/trame.png) 0 0 repeat;
+}
+
+/* -----------------------------------------Style header--------------------------------------------*/
 header {
-    height: 40vh;
+    padding-top: 3em;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+header h1 {
+    font-size: 3em;
+    font-weight: 600;
+}
+
+#intro {
+    padding: 1.5em 0 3em 0;
+}
+
+#intro ul li {
+    margin-left: 1em;
+}
+
+#introduction {
+    font-size: 1.2em;
     text-align: center;
 }
 
-#localisation {
-    position: relative;
-    height: 40vh;
+#separation {
+    padding: 1em 0;
+    background-color: #233a4a;
 }
 
+/* ----------------------------------------Style Main ------------------------------------------------*/
+
+main {
+    padding: 3em 0;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+        /* ----------------------------------------Style div fomulaire----------------------------------------*/
 
 
-ul li {
-    list-style-type: none;
+#adresse {
+    width: 80%;
+}
+
+.btn {
+    background-color: #1cb4c2;
+    color: white;
+    padding: 0.5em;
+    margin: 0.5em 0;
+}
+.btn:hover {
+    background-color: #13598c;
+    color: white;
 }
 
 .result_focus {
     background-color: aqua;
 }
 
-#mapid {
-    height: 40vh;
+#localisation {
+    padding-bottom: 1.5em;
 }
+
+#localisation ul li {
+    list-style-type: none;
+}
+
+#mapid {
+    height: 80vh;
+}
+
+/* ---------- Social Sidebar ---------- */
+#social-sidebar a {
+    text-decoration: none;
+}
+
+#social-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+#social-sidebar {
+
+    left: 0;
+    /*  right or left  */
+
+    margin-top: -130px;
+    /* (li * a:width) / -2 */
+    position: fixed;
+    top: 500px;
+    z-index: 10000;
+
+}
+
+#social-sidebar ul li a {
+    background: #121212;
+    color: #fff;
+    display: block;
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    position: relative;
+    text-align: center;
+    width: 50px;
+}
+
+#social-sidebar ul li a:hover span {
+    left: 130%;
+    /*  right or left  */
+    opacity: 1;
+
+}
+
+#social-sidebar ul li a span {
+    border-radius: 3px;
+    line-height: 24px;
+    left: -100px;
+    /*  right or left  */
+
+    margin-top: -16px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    padding: 4px 8px;
+    position: absolute;
+    -webkit-transition: opacity .3s, left .4s;
+    -moz-transition: opacity .3s, left .4s;
+    -ms-transition: opacity .3s, left .4s;
+    -o-transition: opacity .3s, left .4s;
+    transition: opacity .3s, left .4s;
+    top: 50%;
+    z-index: -1;
+
+}
+
+#social-sidebar ul li a span:before {
+    content: "";
+    display: block;
+    height: 8px;
+    left: -4px;
+    /*  right or left  */
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 8px;
+    z-index: -2;
+
+}
+
+#social-sidebar ul li a[class*="twitter"]:hover,
+#social-sidebar ul li a[class*="twitter"] span,
+#social-sidebar ul li a[class*="twitter"] span:before {
+    background: #6CDFEA;
+}
+
+#social-sidebar ul li a[class*="twitter"] {
+    background: #32dcf3;
+}
+
+#social-sidebar ul li a[class*="gplus"]:hover,
+#social-sidebar ul li a[class*="gplus"] span,
+#social-sidebar ul li a[class*="gplus"] {
+    background: #E34429;
+}
+
+#social-sidebar ul li a[class*="gplus"] {
+    background: #e74a41;
+}
+
+#social-sidebar ul li a[class*="tumblr"]:hover,
+#social-sidebar ul li a[class*="tumblr"] span,
+#social-sidebar ul li a[class*="tumblr"] span:before {
+    background: #1769ff;
+}
+
+#social-sidebar ul li a[class*="facebook"]:hover,
+#social-sidebar ul li a[class*="facebook"] span,
+#social-sidebar ul li a[class*="facebook"] span:before {
+    background: #234999;
+}
+
+#social-sidebar ul li a[class*="facebook"] {
+    background: #4a6eaa;
+}
+
+#social-sidebar ul li a[class*="rss"]:hover,
+#social-sidebar ul li a[class*="rss"] span,
+#social-sidebar ul li a[class*="rss"] span:before {
+    background: #f57b05;
+}
+
+
+/* ------------------------------------------------- Style Footer ------------------------------------------ */
 footer {
-    margin-top: 5%;
+    background-color: #233a4a;
+    padding: 3em 0;
+    color: white;
+}
+
+footer ul li {
+    list-style-type: none;
+}
+
+footer ul li a {
+    color: #3399cc;
+}
+
+footer ul li a:hover {
+    color: #1cb4c2;
 }

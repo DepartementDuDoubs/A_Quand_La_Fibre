@@ -1,11 +1,23 @@
 /**
- * Créé par Aurélien Caillaud 
- * Pour le conseil départemental du Doubs
- * Licence CC-by-nc-nd 3.0
+ * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez juste, en vous géolocalisant ou en entrant votre adresse.>
+*  Copyright (C) <2019>  <Aurélien Caillaud>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 $(function() {
-  
+
 // ------------------------------------Constante principales------------------------------------------
 const apiAdresse = 'https://api-adresse.data.gouv.fr/search/?q=';
 const apiAdressReverse = 'https://api-adresse.data.gouv.fr/reverse/';
@@ -28,8 +40,8 @@ let tempsGagne;
 
 // ------------------------------------ Création de la Map ----------------------------------------
 let mymap = L.map('mapid', {
-    center: [47.234, 6.015],
-    zoom: 13
+    center: [47.216, 6.5403],
+    zoom: 10
 });
 
 // ------------------------------------ Appel à API Mapbox et limitation zoom --------------------------
@@ -44,7 +56,7 @@ L.tileLayer(url_map, {
 $("#geoloc").click(function () {
     mymap.locate({
         setView: true,
-        zoom: 13
+        zoom: 15
     });
 });
 
@@ -218,7 +230,7 @@ function getCoord(){
             // On recentre la map
             mymap.setView(
                 reponse,
-                13
+                15
             );
             // On envoie maintenant la requête à opendata
         getDate1();
