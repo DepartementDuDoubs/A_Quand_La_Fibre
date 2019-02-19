@@ -263,7 +263,7 @@ function getDate1() {
         success: function(data1) {
             data1 = data1.records[0];
             if (data1 == undefined) {
-                $('#final').html("Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone du Réseau d'Initiative Publique.");
+                $('#final').text("Adresse introuvable dans notre base, soit vous ne dépendez pas de notre zone, soit vous êtes déjà éligible à la fibre.");
             } else {
                 date1 = data1.fields.date;
                 console.log(data1);
@@ -292,16 +292,16 @@ function getDate2() {
             if ((date1 == '2021-2022') && (date2 >> 2022)) {
                 console.log(date2);
                 tempsGagne = date2 - 2022;
-                $('#final').html("Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
+                $('#final').text("Vous devriez avoir la fibre chez vous entre 2021 et 2022. Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
             } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
                 console.log(date1, date2);
                 $('#final').text("Vous devriez avoir la fibre chez vous entre 2021 et 2022.");
             } else if (date1 < date2) {
                 console.log(date1, date2);
                 tempsGagne = date2-date1;
-                $('#final').html("Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
+                $('#final').text("Vous devriez avoir la fibre chez vous en "+ date1+ ". Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
             } else {
-                $('#final').html('Vous devriez avoir la fibre en '+date1 + '.');
+                $('#final').text('Vous devriez avoir la fibre en '+date1 + '.');
             }
         },
         error: function() {

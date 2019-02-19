@@ -10,8 +10,15 @@ header {
     text-align: center;
 }
 
-#formulaire {
+#localisation {
+    position: relative;
     height: 40vh;
+}
+
+
+
+ul li {
+    list-style-type: none;
 }
 
 .result_focus {

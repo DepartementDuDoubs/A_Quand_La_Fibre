@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="découvrez quand la fibre arrive chez vous">
     <meta name="author" content="Aurélien Caillaud">
     <meta name="" content="">
@@ -23,9 +24,9 @@
     </header>
     <main class="container-fluid">
         <section class="container">
-            <div class="row " id="localisation">
-                <div class="col-md-6 d-flex flex-column align-items-center justify-content-between" id="formulaire">
-                    <form action="index.html" method="post" class="d-flex flex-column align-items-center">
+            <div class="row ">
+                <div class="col-md-6" id="formulaire">
+                    <form action="index.html" method="post" class="d-flex flex-column">
                         <label for="adresse">Entrez votre adresse postale</label>
                         <input type="text" name="adresse" id="adresse">
                         <ul id="suggestions">
@@ -33,11 +34,12 @@
                         </ul>
                         <input type="submit" name="valider" value="Envoyer" id="envoyer">
                     </form>
-                    <div class="d-flex flex-column align-items-center">
-                        <label for="geoloc" id="label_geoloc">Ou géolocalisez vous en cliquant ici</label>
-                        <button type="button" name="geoloc" id="geoloc">Géolocalisation</button>
-                        <p id="final">Votre réponse apparaîtra ici.</p>
-                    </div>
+                    
+                    <label for="geoloc">Ou géolocalisez vous en cliquant ici</label>
+                    <button type="button" name="geoloc" id="geoloc">Géolocalisation</button>
+                    <label for="repfinal">Obtenez votre réponse en cliquant ici</label>
+                    <button type="button" name="repfinal" id="repfinal">Réponse</button>
+                    <p id="final"></p>
                 </div>
                 <div class="col-md-6" id="mapid" alt="carte géographique">
                 </div>
