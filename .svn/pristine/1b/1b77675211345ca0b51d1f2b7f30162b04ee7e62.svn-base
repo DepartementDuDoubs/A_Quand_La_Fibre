@@ -68,15 +68,13 @@ main {
 
 
 #adresse {
-    width: 100%;
+    width: 80%;
 }
 
 .btn {
     background-color: #1cb4c2;
     color: white;
-    font-size: 1.2em;
     padding: 0.5rem;
-    width: 100%;
     margin: 0.5rem 0;
 }
 .btn:hover {
@@ -85,7 +83,7 @@ main {
 }
 
 .result_focus {
-    background-color: #1cb4c2;
+    background-color: aqua;
 }
 
 #localisation {
@@ -96,78 +94,8 @@ main {
     list-style-type: none;
 }
 
-    /* -----------------------------Style Réponse avec animation------------------------*/
-:root {
-        --animation-delay: 1s;
-        --duration: 800ms;
-        --iterations: 1;
-}
-.reveal-text,
-.reveal-text::after {
-	animation-delay: var(--animation-delay);
-	animation-iteration-count: var(--iterations);
-	animation-duration: var(--duration);
-	animation-fill-mode: both;
-	animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
-}
+    /* -----------------------------Style Réponse ------------------------*/
 
-.reveal-text {
-	position: relative;
-	font-size: 1.3rem;
-	display: block;
-	user-select: none;
-	animation-name: clip-text;
-	color: #FFF;
-	white-space: nowrap;
-	cursor: default;
-	
-	
-}
-.reveal-text:after {
-		content: "";
-		position: absolute;
-		z-index: 999;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-color: #1cb4c2;
-		transform: scaleX(0);
-		transform-origin: 0 50%;
-		pointer-events: none;
-		animation-name: text-revealer;
-}
-
-
-@keyframes clip-text {
-	from {
-		clip-path: inset(0 100% 0 0);
-	}
-	to {
-		clip-path: inset(0 0 0 0);
-	}
-}
-
-
-@keyframes text-revealer {
-	
-	0%, 50% {
-		transform-origin: 0 50%;
-	}
-	
-	60%, 100% {
-		transform-origin: 100% 50%;		
-	}
-
-	
-	60% {
-		transform: scaleX(1);
-	}
-	
-	100% {
-		transform: scaleX(0);
-	}
-}
 #final {
     font-size: 1.3rem;
     color: white;

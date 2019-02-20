@@ -130,7 +130,7 @@
                             <li></li>
                         </ul>
                     </span>
-                    <input type="submit" class="btn" name="valider" value="Valider l'adresse" id="envoyer">
+                    <input type="submit" class="btn" name="valider" value="Envoyer" id="envoyer">
                 </form>
                 <div class="col-10 col-md-5 d-flex flex-column align-items-center justify-content-between">
                     <label for="geoloc">Ou géolocalisez vous en cliquant ici</label>
@@ -140,7 +140,7 @@
             <!-- ------------------------------------------Réponse---------------------------------------------- -->
             <div class="row justify-content-around">
 
-                <p class="text-center col-10 col-md-10 reveal-text" id="final">Votre réponse apparaîtra ici.</p>
+                <p class="text-center col-10 col-md-10" id="final">Votre réponse apparaîtra ici.</p>
 
             </div>
             <!-- ------------------------------------------Map---------------------------------------------- -->
@@ -175,7 +175,7 @@
             </div>
         <!-- ------------------------------------------Infos Création---------------------------------------------- -->
             <div class="col-10 col-md-5">
-                <p>Pour le Conseil Départemental du Doubs.<br>
+                <p>Pour le conseil départemental du Doubs.<br>
                     Direction des Usages Numériques.<br>
                     Lors de mon stage de formation <a href="http://www.accesscodeschol.fr" target="_blank" rel="noopener noreferrer">
                         <img id="logo_acs" class="img-fluid" src="css/images/logo_ACS.png" alt="logo accesscodeschool"

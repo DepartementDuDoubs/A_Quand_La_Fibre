@@ -57,7 +57,6 @@ L.tileLayer(url_map, {
 // ------------------------------------Fonction de géolocalisation------------------------------------
 $("#geoloc").click(function () {
     mymap.locate();
-    
 });
 
 function onLocationFound(e) {
@@ -195,7 +194,6 @@ $("#envoyer").click(function (e) {
     e.preventDefault();
     // On récupère l'adresse 
     adressePostale = adresse.value;
-    $('#final').html('');
     // On appelle la fonction getCoord    
     getCoord();    
     return false;
@@ -284,9 +282,10 @@ function getDate1() {
         success: function(data1) {
             data1 = data1.records[0];
             if (data1 == undefined) {
-                $('#final').html("Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone gérée par le Conseil Départemental.");
+                $('#final').html("Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone géré par le Conseil Départemental.");
             } else {
                 date1 = data1.fields.date;
+                console.log(data1);
                 getDate2();
             }
         },
@@ -307,17 +306,19 @@ function getDate2() {
         datatype: 'json',
         success: function(data2) {
             date2 = data2.records[0].fields.date;
+            console.log(data2);
                 // ------------------------------------Comparaison des dates ----------------------------------------------------------
             if ((date1 == '2021-2022') && (date2 >> 2022)) {
+                console.log(date2);
                 tempsGagne = date2 - 2022;
                 $('#final').html("Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
             } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
+                console.log(date1, date2);
                 $('#final').text("Vous devriez avoir la fibre chez vous entre 2021 et 2022.");
             } else if (date1 < date2) {
+                console.log(date1, date2);
                 tempsGagne = date2-date1;
-                animationText(message); 
-                    message = "Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.";
-                
+                $('#final').html("Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
             } else {
                 $('#final').html('Vous êtes déjà éligible à la fibre depuis '+date1 + '.<br>Rapprochez vous de votre fournisseur d\'accès.');
             }
@@ -328,17 +329,3 @@ function getDate2() {
     })
 };
 })
-
-// ------------------------------------Fonction animation texte réponse-------------------------------------------------------------------
-
-function animationText(message) {
-    animation = setInterval("animationText()", 50);
-    cour = 0;
-    document.getElementById('final').innerHTML = message.substr(0, cour)+message.charAt(cour);
-    
-    if (cour == message.length) {
-        clearInterval(animation);
-    } else {
-        cour ++;
-    }
-}
