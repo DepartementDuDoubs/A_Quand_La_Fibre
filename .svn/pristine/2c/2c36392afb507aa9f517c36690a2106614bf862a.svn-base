@@ -1,5 +1,5 @@
 /**
- * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez vous, en vous géolocalisant ou en entrant votre adresse.>
+ * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez juste, en vous géolocalisant ou en entrant votre adresse.>
 *  Copyright (C) <2019>  <Aurélien Caillaud>
 
     This program is free software: you can redistribute it and/or modify
@@ -24,15 +24,13 @@ const apiAdressReverse = 'https://api-adresse.data.gouv.fr/reverse/';
 const apiDate1 = 'https://opendata.doubs.fr/api/records/1.0/search/';
 const apiDate2 = 'https://opendata.doubs.fr/api/records/1.0/search/';
 const accessToken = 'pk.eyJ1IjoibW91c3RpY2syNTkwIiwiYSI6ImNqczBoMTYxYTAxNHkzeW8xZHoxaHFraDQifQ.CzLCF-o00ONDlhxJBSo7-Q';
-const url_map = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+const url_map = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}';
 
 
 // --------------------------------------- Variables utilisées dans les fonctions --------------------
-
+const final = document.getElementById('final');
 let lati;
 let longi;
-let coords;
-let radius;
 let adressePostale;
 let adresse = document.getElementById('adresse'),
     suggestions = document.getElementById('suggestions');
@@ -48,7 +46,7 @@ let mymap = L.map('mapid', {
 
 // ------------------------------------ Appel à API Mapbox et limitation zoom --------------------------
 L.tileLayer(url_map, {
-    attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - Tiles courtesy of <a href="https://hot.openstreetmap.org/">Humanitarian OpenStreetMap Team</a>',
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox.streets',
     accessToken: accessToken
@@ -56,16 +54,20 @@ L.tileLayer(url_map, {
 
 // ------------------------------------Fonction de géolocalisation------------------------------------
 $("#geoloc").click(function () {
-    mymap.locate();
+    mymap.locate({
+        setView: true,
+        zoom: 15
+    });
 });
 
 function onLocationFound(e) {
-    radius = e.accuracy / 10;
-    coords = e.latlng;
+    let radius = e.accuracy / 10;
     lati = e.latlng.lat;
     longi = e.latlng.lng;
     getAdresse();
-    
+    L.marker(e.latlng).addTo(mymap)
+    .bindPopup("Vous êtes géolocalisé ici "+ adresse.value + " avec une marge d'erreur de " + radius+ " mètres.<br>Cliquez sur Envoyer pour valider, sinon modifiez l'adresse dans le champ prévu.<br>lat : "+ lati + "<br>lon : "+longi ).openPopup();
+    L.circle(e.latlng, radius).addTo(mymap);
 
 }
 
@@ -224,7 +226,7 @@ function getCoord(){
             ];
             // On crée le marqueur sur la map
             L.marker(reponse).addTo(mymap)
-            .bindPopup("Vous êtes ici " + adressePostale + '<br>latitude : ' + lati + '<br>longitude : ' + longi ).openPopup();
+            .bindPopup("Vous êtes ici " + adressePostale + '<br>lat : ' + lati + '<br>lng : ' + longi ).openPopup();
             // On recentre la map
             mymap.setView(
                 reponse,
@@ -251,16 +253,7 @@ function getAdresse() {
         success: function(data) {
             data = data.features[0].properties.label;
             $('#adresse').val(data);
-            // On crée le marqueur sur la map
-            L.marker(coords).addTo(mymap)
-            .bindPopup("Vous êtes géolocalisé ici "+ data + " avec une marge d'erreur de " + radius + " mètres.<br>Cliquez sur Envoyer pour valider, sinon modifiez l'adresse dans le champ prévu.<br>latitude : "+ lati + "<br>longitude : "+longi ).openPopup();
-            L.circle(coords, radius).addTo(mymap);
-            // On recentre la map
-            mymap.setView(
-                coords,
-                15
-            );
-            
+            console.log(data);
             getDate1();
         },
         error: function() {
@@ -282,7 +275,7 @@ function getDate1() {
         success: function(data1) {
             data1 = data1.records[0];
             if (data1 == undefined) {
-                $('#final').html("Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone géré par le Conseil Départemental.");
+                $('#final').html("Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone du Réseau d'Initiative Publique.");
             } else {
                 date1 = data1.fields.date;
                 console.log(data1);
@@ -320,7 +313,7 @@ function getDate2() {
                 tempsGagne = date2-date1;
                 $('#final').html("Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.");
             } else {
-                $('#final').html('Vous êtes déjà éligible à la fibre depuis '+date1 + '.<br>Rapprochez vous de votre fournisseur d\'accès.');
+                $('#final').html('Vous devriez avoir la fibre en '+date1 + '.');
             }
         },
         error: function() {
