@@ -1,0 +1,355 @@
+/**
+ * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez vous, en vous géolocalisant ou en entrant votre adresse.>
+*  Copyright (C) <2019>  <Aurélien Caillaud>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@font-face {
+    font-family: "Conv_Amaranth-Regular";
+    src: url(fonts/Amaranth-Regular.ttf) format('truetype');
+}
+
+body {
+    font-family: "Conv_Amaranth-Regular",Helvetica,Arial,sans-serif;
+    background:#1cb4c2 url(images/trame.png) 0 0 repeat;
+    font-size: 1em;
+    color: #233a4a;
+}
+
+/* -----------------------------------------Style header--------------------------------------------*/
+header {
+    padding-top: 3rem;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+#intro {
+    padding: 1.5rem 0 3rem 0;
+}
+
+#intro ul li {
+    margin-left: 1rem;
+}
+
+#introduction {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#separation {
+    padding: 1rem 0;
+    background-color: #233a4a;
+}
+
+/* ----------------------------------------Style Main ------------------------------------------------*/
+
+main {
+    padding: 3rem 0;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+        /* ----------------------------------------Style div fomulaire et géolocalisation----------------------------------------*/
+
+
+#adresse {
+    width: 100%;
+}
+
+.btn {
+    background-color: #1cb4c2;
+    color: white;
+    font-size: 1.2em;
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+.btn:hover {
+    background-color: #13598c;
+    color: white;
+}
+
+.result_focus {
+    background-color: #1cb4c2;
+}
+
+#localisation {
+    padding-bottom: 1.5rem;
+}
+
+#localisation ul li {
+    list-style-type: none;
+}
+
+    /* -----------------------------Style Réponse avec animation------------------------*/
+:root {
+        --animation-delay: 1s;
+        --duration: 800ms;
+        --iterations: 1;
+}
+.reveal-text,
+.reveal-text::after {
+	animation-delay: var(--animation-delay);
+	animation-iteration-count: var(--iterations);
+	animation-duration: var(--duration);
+	animation-fill-mode: both;
+	animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.reveal-text {
+	position: relative;
+	font-size: 1.3rem;
+	display: block;
+	user-select: none;
+	animation-name: clip-text;
+	color: #FFF;
+	white-space: nowrap;
+	cursor: default;
+	
+}
+.reveal-text:after {
+		content: "";
+		position: absolute;
+		z-index: 999;
+		top: 0;
+		left: 0;
+		right: 0;
+        bottom: 0;
+        border-radius: 0.7em;
+		background-color: #1cb4c2;
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		pointer-events: none;
+		animation-name: text-revealer;
+}
+
+
+@keyframes clip-text {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+
+@keyframes text-revealer {
+	
+	0%, 50% {
+		transform-origin: 0 50%;
+	}
+	
+	60%, 100% {
+		transform-origin: 100% 50%;		
+	}
+
+	
+	60% {
+		transform: scaleX(1);
+	}
+	
+	100% {
+		transform: scaleX(0);
+	}
+}
+#final {
+    font-size: 1.3rem;
+    color: white;
+    background-color: #233a4a;
+    padding: 1.5rem;
+    border-radius: 1rem;
+}
+
+    /* -----------------------------Style Map --------------------------- */
+
+#mapid {
+    border-radius: 1rem;
+    height: 60vh;
+}
+
+/* ------------------------------------- Social Sidebar --------------------------------- */
+#social-sidebar a {
+    text-decoration: none;
+}
+
+#social-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+#social-sidebar {
+
+    left: 0;
+    /*  right or left  */
+
+    margin-top: -130px;
+    /* (li * a:width) / -2 */
+    position: fixed;
+    top: 50vh;
+    z-index: 10000;
+
+}
+
+#social-sidebar ul li a {
+    background: #121212;
+    color: #fff;
+    display: block;
+    width: 2rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    position: relative;
+    text-align: center;
+    
+}
+
+#social-sidebar ul li a:hover span {
+    left: 130%;
+    /*  right or left  */
+    opacity: 1;
+
+}
+
+#social-sidebar ul li a span {
+    border-radius: 3px;
+    line-height: 1.5rem;
+    left: -100px;
+    /*  right or left  */
+
+    margin-top: -16px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    padding: 4px 8px;
+    position: absolute;
+    -webkit-transition: opacity .3s, left .4s;
+    -moz-transition: opacity .3s, left .4s;
+    -ms-transition: opacity .3s, left .4s;
+    -o-transition: opacity .3s, left .4s;
+    transition: opacity .3s, left .4s;
+    top: 50%;
+    z-index: -1;
+
+}
+
+#social-sidebar ul li a span:before {
+    content: "";
+    display: block;
+    height: 8px;
+    left: -4px;
+    /*  right or left  */
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 8px;
+    z-index: -2;
+
+}
+
+#social-sidebar ul li a[class*="twitter"]:hover,
+#social-sidebar ul li a[class*="twitter"] span,
+#social-sidebar ul li a[class*="twitter"] span:before {
+    background: #6CDFEA;
+}
+
+#social-sidebar ul li a[class*="twitter"] {
+    background: #32dcf3;
+}
+
+#social-sidebar ul li a[class*="gplus"]:hover,
+#social-sidebar ul li a[class*="gplus"] span,
+#social-sidebar ul li a[class*="gplus"] {
+    background: #E34429;
+}
+
+#social-sidebar ul li a[class*="gplus"] {
+    background: #e74a41;
+}
+
+#social-sidebar ul li a[class*="tumblr"]:hover,
+#social-sidebar ul li a[class*="tumblr"] span,
+#social-sidebar ul li a[class*="tumblr"] span:before {
+    background: #1769ff;
+}
+
+#social-sidebar ul li a[class*="facebook"]:hover,
+#social-sidebar ul li a[class*="facebook"] span,
+#social-sidebar ul li a[class*="facebook"] span:before {
+    background: #234999;
+}
+
+#social-sidebar ul li a[class*="facebook"] {
+    background: #4a6eaa;
+}
+
+#social-sidebar ul li a[class*="rss"]:hover,
+#social-sidebar ul li a[class*="rss"] span,
+#social-sidebar ul li a[class*="rss"] span:before {
+    background: #f57b05;
+}
+
+
+/* ------------------------------------------------- Style Footer ------------------------------------------ */
+footer {
+    background-color: #233a4a;
+    padding: 3rem 0;
+    color: white;
+}
+
+footer ul li {
+    list-style-type: none;
+}
+
+footer ul li a {
+    color: #3399cc;
+}
+
+footer ul li a:hover {
+    color: #1cb4c2;
+}
+
+#createur {
+    color: #3399cc;
+}
+
+#createur:hover {
+    color: #1cb4c2;
+}
+
+#logo_acs {
+    width: 20%;
+}
+
+#logo_gpl {
+    width: 20%;
+}
+
+@media screen and (max-width: 766px) {
+    footer ul li {
+        margin-left: -2.5rem;
+    }
+}

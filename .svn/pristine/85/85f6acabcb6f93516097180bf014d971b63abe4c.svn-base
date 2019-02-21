@@ -1,0 +1,202 @@
+<!-- /**
+ * <À quand la fibre? __ Trouvez à quelle date la fibre arrivera chez vous, en vous géolocalisant ou en entrant votre adresse.>
+*  Copyright (C) <2019>  <Aurélien Caillaud>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */ -->
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez quand la fibre arrive chez vous">
+    <meta name="author" content="Aurélien Caillaud">
+    <meta name="keywords" content="Doubs, Haut-Doubs, Franche-Comté, franche comté, Besançon, Montbéliard, Pontarlier, Ornans, Morteau, Mouthe, Métabief, Mont d'or, fibre, communes">
+    <meta property="og:description" content="Découvrez quand la fibre arrive chez vous">
+    <meta property="og:title" content="À quand la fibre?" />
+    <meta property="og:url" content="https://aurelienc.promo-27.codeur.online/A_QUAND_LA_FIBRE" />
+    <meta property="og:image" content="css/images/LOGO_CD25.png" />
+    <meta name="twitter:card" content="Découvrez quand la fibre arrive chez vous" />
+    <meta name="twitter:site" content="https://aurelienc.promo-27.codeur.online/A_QUAND_LA_FIBRE" />
+    <meta name="twitter:creator" content="Aurélien Caillaud" />
+    <title>À quand la fibre?</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="css/images/LOGO_CD25.png" type="image/x-icon">
+</head>
+
+<body class="container-fluid">
+    <!-- ------------------------------------------Header---------------------------------------------- -->
+    <header class=" container">
+        <div class="row justify-content-around" id="titre">
+            <div class="col-10 col-sm-5">
+                <img src="css/images/LOGO_CD25.png" alt="logo Département du Doubs" width="200" height="82">
+            </div>
+            <div class="col-10 col-sm-7">
+                <h1>À quand la fibre ?</h1>
+            </div>
+        </div>
+        <div class="row justify-content-around" id="intro">
+            <div class="col-10 col-sm-8" id="introduction">
+                <p>Vous voulez savoir quand la fibre arrivera enfin chez vous ?<br>
+                    Vous êtes au bon endroit !<br>
+                    Remplissez le formulaire ci-dessous pour obtenir votre réponse.</p>
+            </div>
+            <div class="col-10 justify-content-around col-sm-4">
+                <ul class="nav flex-wrap">
+                    <div class="row">
+                        <li class="nav-item">
+                            <a class="btn nav-link" target="_blank" href="https://www.doubs.fr/index.php/accueil/presse">Espace
+                                presse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn nav-link" href="https://opendata.doubs.fr" target="_blank" rel="noopener noreferrer"
+                                data-original-title="Consultation et utilisation de données en ligne du Département du Doubs">Open
+                                DATA</a>
+                        </li>
+                    </div>
+                    <div class="row">
+                        <li class="nav-item">
+                            <a class="btn nav-link" href="https://www.doubs.fr/index.php/rgpd" data-original-title="Règlement général sur la protection des données">RGPD</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn nav-link" href="https://www.doubs.fr/index.php/mentions-legales">Mentions
+                                légales</a>
+                        </li>
+                    </div>
+                </ul>
+                <!-- ------------------------------------------Liens Réseaux Socieaux---------------------------------------------- -->
+                <div class="head-search">
+                    <div class="mod_easy_sidebar_icon ">
+                        <div id="social-sidebar">
+                            <ul>
+                                <li>
+                                    <a class="entypo-twitter" href="https://twitter.com/Doubscd25" target="_blank">
+                                        <img src="css/images/icone_twitter.png" alt="TWITTER">
+                                        <span>Twitter</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="entypo-gplus" href="https://plus.google.com/u/0/100330323281119410363/posts"
+                                        target="_blank"><img src="css/images/icone_google.png" alt="Google +">
+                                        <span>google+</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="entypo-facebook" href="https://www.facebook.com/cddoubs/timeline/" target="_blank"><img
+                                            src="css/images/icone_facebook.png" alt="Facebook">
+                                        <span>facebook</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="separation"></div>
+    </header>
+<!-- ------------------------------------------Main---------------------------------------------- -->
+    <main class="container">
+        <section>
+            <!-- ------------------------------------------Formulaire adresse et géolocalisation---------------------------------------------- -->
+            <div class="row justify-content-center" id="localisation">
+                <form class="col-10 col-md-5 d-flex flex-column align-items-center" action="index.html" method="post"
+                    class="d-flex flex-column align-items-center">
+                    <label for="adresse">Entrez votre adresse postale</label>
+                    <input type="text" name="adresse" id="adresse">
+                    <span>
+                        <ul id="suggestions">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </span>
+                    <input type="submit" class="btn" name="valider" value="Valider l'adresse" id="envoyer">
+                </form>
+                <div class="col-10 col-md-5 d-flex flex-column align-items-center justify-content-between">
+                    <label for="geoloc">Ou géolocalisez vous en cliquant ici</label>
+                    <button type="button" class="btn" name="geoloc" id="geoloc">Géolocalisation</button>
+                </div>
+            </div>
+            <!-- ------------------------------------------Réponse---------------------------------------------- -->
+            <div class="row justify-content-around">
+                <div class="text-center col-10 col-md-10 " id="final">
+                    <p class=" reveal-text" >Votre réponse apparaîtra ici.</p>
+                </div>
+            </div>
+            <!-- ------------------------------------------Map---------------------------------------------- -->
+            <div class="row justify-content-center">
+                <div class="col-10 col-sm-10" id="mapid" alt="carte géographique"></div>
+            </div>
+        </section>
+    </main>
+<!-- ------------------------------------------Footer---------------------------------------------- -->
+    <footer class="container">
+        <!-- ------------------------------------------Liens API---------------------------------------------- -->
+        <div class="row justify-content-around" id="liens_utiles">
+            <div class="col-10 col-md-7">
+                <ul class="text-start">
+                    <li>
+                        <p>Liens vers les systèmes de données utilisés :</p>
+                    </li>
+                    <li>
+                        <a href="https://opendata.doubs.fr/explore/dataset/deploiement-fibre-optique-en-zone-rip-planification-actuelle/information/?disjunctive.date"
+                            target="_blank" rel="noopener noreferrer" data-original-title="Consultation et utilisation de données en ligne du Département du Doubs">DÉPLOIEMENT
+                            FIBRE OPTIQUE EN ZONE RIP - PLANIFICATION ACTUELLE</a>
+                    </li>
+                    <li>
+                        <a href="https://opendata.doubs.fr/explore/dataset/deploiement-fibre-optique-en-zone-rip/information/?disjunctive.date"
+                            target="_blank" rel="noopener noreferrer" data-original-title="Consultation et utilisation de données en ligne du Département du Doubs">DÉPLOIEMENT
+                            FIBRE OPTIQUE EN ZONE RIP - PLANIFICATION INITIALE</a>
+                    </li>
+                    <li>
+                        <a href="https://adresse.data.gouv.fr/donnees-nationales">Base Adresse Nationale</a>
+                    </li>
+                </ul>
+            </div>
+        <!-- ------------------------------------------Infos Création---------------------------------------------- -->
+            <div class="col-10 col-md-5">
+                <p>Pour le Conseil Départemental du Doubs.<br>
+                    Direction des Usages Numériques.<br>
+                    Lors de mon stage de formation <a href="http://www.accesscodeschol.fr" target="_blank" rel="noopener noreferrer">
+                        <img id="logo_acs" class="img-fluid" src="css/images/logo_ACS.png" alt="logo accesscodeschool"
+                            width="1809" height="481"> </a><br>
+                    Copyright (C) 2019 <a id="createur" href="http://aurelienc.promo-27.codeur.online/portfolio" target="_blank" rel="noopener noreferrer">Aurélien
+                        Caillaud</a>.<br>
+                    Licence : <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img id="logo_gpl" class="img-fluid"
+                            src="css/images/gplv3-with-text-84x42.png" alt="logo licence GPL v3" width="84" height="42"></a></p>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
