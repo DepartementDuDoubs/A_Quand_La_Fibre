@@ -236,7 +236,7 @@ function getCoord(){
 
         },
         error: function() {
-            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
+            $('#final').html("<p class='text-wrap reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     });    
 
@@ -266,7 +266,7 @@ function getAdresse() {
             getDate1();
         },
         error: function() {
-            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
+            $('#final').html("<p class='reveal-text text-wrap'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     });
 };
@@ -284,14 +284,14 @@ function getDate1() {
         success: function(data1) {
             data1 = data1.records[0];
             if (data1 == undefined) {
-                $('#final').html("<p class='reveal-text'>Votres adresse n'a pas été trouvée dans notre base.<br>Vous ne dépendez pas de la zone gérée par le Département du Doubs.<br>Veuillez vous renseigner auprès de l'opérateur privé chargé de votre secteur<br> ou de votre Département si vous ne résidez pas dans le Doubs.</p>");
+                $('#final').html("<p class='reveal-text text-wrap'>Votres adresse n'a pas été trouvée dans notre base.<br>Vous ne dépendez pas de la zone gérée par le Département du Doubs.<br>Veuillez vous renseigner auprès de l'opérateur privé chargé de votre secteur ou de votre Département si vous ne résidez pas dans le Doubs.</p>");
             } else {
                 date1 = data1.fields.date;
                 getDate2();
             }
         },
         error: function() {
-            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
+            $('#final').html("<p class='reveal-text text-wrap'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     })
 };
@@ -310,19 +310,19 @@ function getDate2() {
                 // ------------------------------------Comparaison des dates ----------------------------------------------------------
             if ((date1 == '2021-2022') && (date2 > 2022)) {
                 tempsGagne = date2 - 2022;
-                $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
+                $('#final').html("<p class='reveal-text text-wrap'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
             } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
                 $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.</p>");
             } else if (date1 < date2) {
                 tempsGagne = date2-date1;
-                $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
+                $('#final').html("<p class='reveal-text text-wrap'>Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
                 
             } else {
-                $('#final').html("<p class='reveal-text'>Vous êtes déjà éligible à la fibre depuis "+date1 + ".<br>Rapprochez vous de votre fournisseur d'accès.</p>");
+                $('#final').html("<p class='reveal-text text-wrap'>Vous êtes déjà éligible à la fibre depuis "+date1 + ".<br>Rapprochez vous de votre fournisseur d'accès.</p>");
             }
         },
         error: function() {
-            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
+            $('#final').html("<p class='reveal-text text-wrap'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     })
 };
