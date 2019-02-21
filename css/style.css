@@ -121,7 +121,6 @@ main {
 	white-space: nowrap;
 	cursor: default;
 	
-	
 }
 .reveal-text:after {
 		content: "";
@@ -130,7 +129,8 @@ main {
 		top: 0;
 		left: 0;
 		right: 0;
-		bottom: 0;
+        bottom: 0;
+        border-radius: 0.7em;
 		background-color: #1cb4c2;
 		transform: scaleX(0);
 		transform-origin: 0 50%;
