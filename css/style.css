@@ -306,10 +306,14 @@ main {
     background: #4a6eaa;
 }
 
-#social-sidebar ul li a[class*="rss"]:hover,
-#social-sidebar ul li a[class*="rss"] span,
-#social-sidebar ul li a[class*="rss"] span:before {
+#social-sidebar ul li a[class*="github"]:hover,
+#social-sidebar ul li a[class*="github"] span,
+#social-sidebar ul li a[class*="github"] span:before {
     background: #f57b05;
+}
+
+#social-sidebar ul li a[class*="github"] {
+    background: #f7881a;
 }
 
 
