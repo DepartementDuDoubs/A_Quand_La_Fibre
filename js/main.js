@@ -103,9 +103,9 @@ mymap.on('locationerror', onLocationError);
 
             }
         });
-
-        xhr.send(null);
-
+        if (keywords.length >= 2) {
+            xhr.send(null);
+        }
         return xhr;
 
     }
@@ -176,7 +176,7 @@ mymap.on('locationerror', onLocationError);
 
             previousValue = adresse.value;
 
-            if (previousRequest && previousRequest.readyState < XMLHttpRequest.DONE) {
+            if (previousRequest && previousRequest.readyState != XMLHttpRequest.DONE) {
                 previousRequest.abort(); // Si on a toujours une requête en cours, on l'arrête
             }
 
@@ -255,7 +255,7 @@ function getAdresse() {
             $('#adresse').val(data);
             // On crée le marqueur sur la map
             L.marker(coords).addTo(mymap)
-            .bindPopup("Vous êtes géolocalisé ici "+ data + " avec une marge d'erreur de " + radius + " mètres.<br>Cliquez sur Envoyer pour valider, sinon modifiez l'adresse dans le champ prévu.<br>latitude : "+ lati + "<br>longitude : "+longi ).openPopup();
+            .bindPopup("Vous êtes géolocalisé ici "+ data + " avec une marge d'erreur de " + radius + " mètres.<br>Si ce n'est pas exact, modifiez l'adresse dans le champ prévu.<br>latitude : "+ lati + "<br>longitude : "+longi ).openPopup();
             L.circle(coords, radius).addTo(mymap);
             // On recentre la map
             mymap.setView(
@@ -284,7 +284,7 @@ function getDate1() {
         success: function(data1) {
             data1 = data1.records[0];
             if (data1 == undefined) {
-                $('#final').html("<p class='reveal-text'>Adresse introuvable dans notre base.<br>Vous ne dépendez pas de la zone gérée par le Départemental du Doubs.</p>");
+                $('#final').html("<p class='reveal-text'>Votres adresse n'a pas été trouvée dans notre base.<br>Vous ne dépendez pas de la zone gérée par le Département du Doubs.<br>Veuillez vous renseigner auprès de l'opérateur privé chargé de votre secteur<br> ou de votre Département si vous ne résidez pas dans le Doubs.</p>");
             } else {
                 date1 = data1.fields.date;
                 getDate2();
@@ -312,7 +312,7 @@ function getDate2() {
                 tempsGagne = date2 - 2022;
                 $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
             } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
-                $('#final').text("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.</p>");
+                $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.</p>");
             } else if (date1 < date2) {
                 tempsGagne = date2-date1;
                 $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
