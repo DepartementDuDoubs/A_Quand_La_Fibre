@@ -236,7 +236,8 @@ function getCoord(){
 
         },
         error: function() {
-        alert('La requête n\'a pas abouti'); }
+            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
+        }
     });    
 
 }
@@ -265,7 +266,7 @@ function getAdresse() {
             getDate1();
         },
         error: function() {
-            alert("La requête n'a pas abouti");
+            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     });
 };
@@ -290,7 +291,7 @@ function getDate1() {
             }
         },
         error: function() {
-            alert("La requête n'a pas abouti");
+            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     })
 };
@@ -309,13 +310,10 @@ function getDate2() {
                 // ------------------------------------Comparaison des dates ----------------------------------------------------------
             if ((date1 == '2021-2022') && (date2 > 2022)) {
                 tempsGagne = date2 - 2022;
-                console.log(date1, date2);
                 $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
             } else if ((date1 == '2021-2022') && ((date2 == 2021) || (date2 == 2022))) {
-                console.log(date1, date2);
                 $('#final').text("<p class='reveal-text'>Vous devriez avoir la fibre chez vous entre 2021 et 2022.</p>");
             } else if (date1 < date2) {
-                console.log(date1, date2);
                 tempsGagne = date2-date1;
                 $('#final').html("<p class='reveal-text'>Vous devriez avoir la fibre chez vous en "+ date1+ ".<br> Le Département du Doubs vous a fait gagner "+ tempsGagne+ " an(s) sur la date initialement prévue.</p>");
                 
@@ -324,7 +322,7 @@ function getDate2() {
             }
         },
         error: function() {
-            alert("La requête n'a pas aboutie");
+            $('#final').html("<p class='reveal-text'>La requête n'a pas aboutie, veuillez réessayer.");
         }
     })
 };
