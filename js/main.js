@@ -23,7 +23,6 @@ const apiAdresse = 'https://api-adresse.data.gouv.fr/search/?q=';
 const apiAdressReverse = 'https://api-adresse.data.gouv.fr/reverse/';
 const apiDate1 = 'https://opendata.doubs.fr/api/records/1.0/search/';
 const apiDate2 = 'https://opendata.doubs.fr/api/records/1.0/search/';
-const accessToken = 'pk.eyJ1IjoibW91c3RpY2syNTkwIiwiYSI6ImNqczBoMTYxYTAxNHkzeW8xZHoxaHFraDQifQ.CzLCF-o00ONDlhxJBSo7-Q';
 const url_map = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
 
 
@@ -52,7 +51,6 @@ L.tileLayer(url_map, {
     attribution: 'donn&eacute;es &copy; <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - Tiles courtesy of <a href="https://hot.openstreetmap.org/">Humanitarian OpenStreetMap Team</a>',
     maxZoom: 18,
     id: 'mapbox.streets',
-    accessToken: accessToken
 }).addTo(mymap);
 
 // ------------------------------------Fonction de géolocalisation------------------------------------
